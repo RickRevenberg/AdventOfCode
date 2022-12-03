@@ -1,25 +1,30 @@
-﻿namespace AdventOfCode._2021
+﻿namespace AdventOfCode.PuzzleSolvers._2021
 {
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Threading.Tasks;
 	using NUnit.Framework;
 
-	public class Day_12
+	public class Day_12 : DayBase2021
 	{
-		private Dictionary<string, Node> NodeDict;
+		public override int Day => 12;
+
+        private Dictionary<string, Node> NodeDict;
 
 		[SetUp]
-		public void SetUp()
+		public async Task SetUp()
 		{
-			var nodes = Input.Split("\r\n").SelectMany(row => row.Split("-")).Distinct().Select(id => new Node
+			var input = await this.GetInput();
+
+			var nodes = input.Split("\n").SelectMany(row => row.Split("-")).Distinct().Select(id => new Node
 			{
 				Id = id
 			}).ToList();
 
 			NodeDict = nodes.ToDictionary(x => x.Id);
 
-			Input.Split("\r\n").ToList().ForEach(row =>
+			input.Split("\n").ToList().ForEach(row =>
 			{
 				var endOne = row.Split("-")[0];
 				var endTwo = row.Split("-")[1];
@@ -30,7 +35,7 @@
 		}
 
 		[Test]
-		public void PartOne()
+		public override void PartOne()
 		{
 			var startingNode = NodeDict["start"];
 			var possiblePaths = CalculatePaths(new List<Node> { startingNode }, SolvingMode.PartOne);
@@ -39,7 +44,7 @@
 		}
 
 		[Test]
-		public void PartTwo()
+		public override void PartTwo()
 		{
 			var startingNode = NodeDict["start"];
 			var possiblePaths = CalculatePaths(new List<Node> { startingNode }, SolvingMode.PartTwo);
@@ -107,67 +112,5 @@
 			PartOne,
 			PartTwo
 	    }
-
-	    private readonly string TestInput = @"start-A
-start-b
-A-c
-A-b
-b-d
-A-end
-b-end";
-
-	    private readonly string TestInput2 = @"dc-end
-HN-start
-start-kj
-dc-start
-dc-HN
-LN-dc
-HN-end
-kj-sa
-kj-HN
-kj-dc";
-
-	    private readonly string TestInput3 = @"fs-end
-he-DX
-fs-he
-start-DX
-pj-DX
-end-zg
-zg-sl
-zg-pj
-pj-he
-RW-he
-fs-DX
-pj-RW
-zg-RW
-start-pj
-he-WI
-zg-he
-pj-fs
-start-RW";
-
-
-		private readonly string Input = @"GC-zi
-end-zv
-lk-ca
-lk-zi
-GC-ky
-zi-ca
-end-FU
-iv-FU
-lk-iv
-lk-FU
-GC-end
-ca-zv
-lk-GC
-GC-zv
-start-iv
-zv-QQ
-ca-GC
-ca-FU
-iv-ca
-start-lk
-zv-FU
-start-zi";
-    }
+	}
 }

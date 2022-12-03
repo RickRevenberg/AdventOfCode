@@ -1,21 +1,26 @@
-﻿namespace AdventOfCode._2021
+﻿namespace AdventOfCode.PuzzleSolvers._2021
 {
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Threading.Tasks;
 	using NUnit.Framework;
 
 	[TestFixture]
-	public class Day_11
+	public class Day_11 : DayBase2021
 	{
-		private int gridWidth = 0;
+		public override int Day => 11;
+
+        private int gridWidth = 0;
 		private List<Octo> Octos;
 		private Dictionary<int, Octo> OctoDict;
 
 		[SetUp]
-	    public void SetUp()
+	    public async Task SetUp()
 	    {
-		    gridWidth = Input.Split("\r\n").First().Length;
-		    Octos = Input.Split("\r\n").SelectMany((row, yPos) => row.ToCharArray().Select((c, xPos) => new Octo
+		    var input = await this.GetInput();
+
+		    gridWidth = input.Split("\n").First().Length;
+		    Octos = input.Split("\n").SelectMany((row, yPos) => row.ToCharArray().Select((c, xPos) => new Octo
 		    {
 				Id = (yPos * gridWidth) + xPos,
 				PosX = xPos,
@@ -45,8 +50,8 @@
 		    OctoDict = Octos.ToDictionary(x => x.Id);
 	    }
 
-		[Test]
-	    public void PartOne()
+	    [Test]
+	    public override void PartOne()
 	    {
 		    var charges = 0;
 
@@ -77,7 +82,7 @@
 	    }
 
 		[Test]
-	    public void PartTwo()
+	    public override void PartTwo()
 	    {
 		    var allFlashed = int.MaxValue;
 
@@ -123,28 +128,5 @@
 			internal bool flashed { get; set; }
 			internal List<int> Neighbours { get; set; } = new List<int>();
 	    }
-
-	    private readonly string TestInput = @"5483143223
-2745854711
-5264556173
-6141336146
-6357385478
-4167524645
-2176841721
-6882881134
-4846848554
-5283751526";
-
-	    private readonly string Input = @"5212166716
-1567322581
-2268461548
-3481561744
-6248342248
-6526667368
-5627335775
-8124511754
-4614137683
-4724561156";
-
 	}
 }

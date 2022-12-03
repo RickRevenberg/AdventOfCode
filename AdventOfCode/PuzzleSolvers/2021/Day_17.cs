@@ -1,19 +1,22 @@
-﻿namespace AdventOfCode._2021
+﻿namespace AdventOfCode.PuzzleSolvers._2021
 {
 	using System;
 	using System.Drawing;
+	using System.Threading.Tasks;
 	using NUnit.Framework;
 
 	[TestFixture]
-    public class Day_17
+    public class Day_17 : DayBase2021
     {
-	    private const int ScanArea = 1000;
+	    public override int Day => 17;
+
+        private const int ScanArea = 1000;
 	    private int minX, maxX, minY, maxY;
 
 		[SetUp]
-	    public void SetUp()
+	    public async Task SetUp()
 	    {
-		    var split = Input.Replace("target area: x=", string.Empty).Replace(" y=", string.Empty).Split(",");
+		    var split = (await this.GetInput()).Replace("target area: x=", string.Empty).Replace(" y=", string.Empty).Split(",");
 
 		    minX = int.Parse(split[0].Split("..")[0]);
 		    maxX = int.Parse(split[0].Split("..")[1]);
@@ -21,8 +24,8 @@
 		    maxY = int.Parse(split[1].Split("..")[1]);
 	    }
 
-		[Test]
-	    public void PartOne()
+	    [Test]
+	    public override void PartOne()
 	    {
 		    var maxY = int.MinValue;
 		    var foundRoutes = 0;
@@ -40,6 +43,11 @@
 		    }
 
 			Assert.Pass($"Routes: {foundRoutes} - highest: {maxY}");
+	    }
+
+	    public override void PartTwo()
+	    {
+		    throw new NotImplementedException();
 	    }
 
 	    private bool CheckDirectory(int x, int y, out int routeMax)
@@ -67,8 +75,5 @@
 			    y--;
 		    }
 	    }
-
-		private const string TestInput = @"target area: x=20..30, y=-10..-5";
-		private const string Input = @"target area: x=269..292, y=-68..-44";
     }
 }

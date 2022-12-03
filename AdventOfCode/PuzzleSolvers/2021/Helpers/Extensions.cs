@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode._2021.Helpers
+﻿namespace AdventOfCode.PuzzleSolvers._2021.Helpers
 {
 	using System.Collections.Generic;
 
