@@ -32,7 +32,7 @@
 	        }
 	        else
 	        {
-		        var input = await InputRetriever.RetrieveInput(Year, Day);
+		        var input = await ApiConnector.RetrieveInput(Year, Day);
 		        File.WriteAllText(cacheFile, input);
 
 		        input = input.Substring(0, input.Length - 1);

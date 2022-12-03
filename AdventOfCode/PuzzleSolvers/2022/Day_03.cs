@@ -16,37 +16,30 @@
         [SetUp]
 	    public async Task SetUp()
 	    {
-		    this.formattedInput = (await this.GetInput()).Split("\n").Select(x => x.ToCharArray().Select(x => x.ToString()).ToList()).Select(x =>
-			    (x.Take(x.Count / 2).Distinct().ToList(), x.Skip(x.Count / 2).Take(x.Count).Distinct().ToList(), x.Distinct().ToList())).ToList();
+		    this.formattedInput = (await this.GetInput())
+			    .Split("\n")
+			    .Select(x => x.ToCharArray().Select(x => x.ToString()).ToList())
+				.Select(x => (
+				    x.Take(x.Count / 2).Distinct().ToList(),
+				    x.Skip(x.Count / 2).Take(x.Count).Distinct().ToList(),
+				    x.Distinct().ToList()))
+			    .ToList();
 	    }
 
 	    [Test]
 	    public override void PartOne()
         {
-		    var priorityScore = 0;
-		    foreach (var input in formattedInput)
-		    {
-			    var duplicate = input.compartmentOne.Single(x => input.compartmentTwo.Contains(x));
-			    priorityScore += GetPriority(duplicate);
-		    }
-
+			var priorityScore = formattedInput.Sum(input => GetPriority(input.compartmentOne.Single(input.compartmentTwo.Contains)));
 			Assert.Pass(priorityScore.ToString());
 	    }
 
 	    [Test]
         public override void PartTwo()
         {
-	        var priorityScore = 0;
-	        var groups = formattedInput.Chunk(3).ToList();
-
-	        foreach (var group in groups)
-	        {
-		        var commonItem = group[0].combined
-			        .Single(x => group[1].combined.Contains(x) && group[2].combined.Contains(x));
-
-		        priorityScore += GetPriority(commonItem);
-	        }
-
+	        var priorityScore = formattedInput.Chunk(3).Sum(group =>
+		        GetPriority(group[0].combined
+			        .Single(x => group[1].combined.Contains(x) && group[2].combined.Contains(x))));
+			
 			Assert.Pass(priorityScore.ToString());
         }
 
