@@ -1,17 +1,26 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2022
 {
-    public class Day_04 : DayBase2022
-    {
-	    public override int Day => 4;
+	using System.Threading.Tasks;
+	using NUnit.Framework;
 
-	    public override void PartOne()
-	    {
-		    throw new System.NotImplementedException();
-	    }
+	public class Day_04 : DayBase2022
+	{
+		public override int Day => 4;
 
-	    public override void PartTwo()
-	    {
-		    throw new System.NotImplementedException();
-	    }
-    }
+		[SetUp]
+		public async Task SetUp()
+		{
+			var what = (await this.GetInput());
+		}
+		
+		[Test]
+		public override void PartOne()
+		{
+		}
+
+		[Test]
+		public override void PartTwo()
+		{
+		}
+	}
 }

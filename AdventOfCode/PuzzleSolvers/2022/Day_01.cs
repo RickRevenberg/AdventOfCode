@@ -30,7 +30,7 @@
 
 		[Test]
 		public override void PartTwo()
-        {
+		{
 			var answer = formattedInput.OrderByDescending(x => x).Take(3).Sum();
 			Assert.Pass(answer.ToString());
 		}

@@ -6,21 +6,21 @@
 	using NUnit.Framework;
 
 	[TestFixture]
-    public class Day_02 : DayBase2022
-    {
-	    private List<(string opponent, string me)> formattedInput;
+	public class Day_02 : DayBase2022
+	{
+		private List<(string opponent, string me)> formattedInput;
 
-	    public override int Day => 2;
+		public override int Day => 2;
 
-        [SetUp]
-	    public async Task SetUp()
-	    {
-		    formattedInput = (await this.GetInput()).Split("\n").Select(x => (x.Split(' ')[0], x.Split(' ')[1])).ToList();
-	    }
+		[SetUp]
+		public async Task SetUp()
+		{
+			formattedInput = (await this.GetInput()).Split("\n").Select(x => (x.Split(' ')[0], x.Split(' ')[1])).ToList();
+		}
 
-	    [Test]
-	    public override void PartOne()
-        {
+		[Test]
+		public override void PartOne()
+		{
 			var score = 0;
 
 			foreach (var input in formattedInput)
@@ -44,7 +44,7 @@
 
 		[Test]
 		public override void PartTwo()
-        {
+		{
 			formattedInput = formattedInput.Select(mapCondition).ToList();
 			PartOne();
 		}
@@ -58,7 +58,7 @@
 				"Z" => 3,
 				_ => 0
 			};
-        }
+		}
 
 		private static (string, string) mapCondition((string opponent, string me) input)
 		{
@@ -90,7 +90,7 @@
 				"CZ" => true,
 				_ => false
 			};
-        }
+		}
 
 		private static bool Won((string opponent, string me) input)
 		{
@@ -107,5 +107,5 @@
 				_ => false
 			};
 		}
-    }
+	}
 }
