@@ -4,7 +4,7 @@
     &lt;TestId&gt;NUnit3x::1CE0217A-6A45-43FF-9184-E630222301B0::.NETCoreApp,Version=v3.1::FallChallenge.DebugData.Test&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=be00a5cb_002D8f51_002D4aba_002Db6e2_002Dd5e043aecd8f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="FallChallengeTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=be00a5cb_002D8f51_002D4aba_002Db6e2_002Dd5e043aecd8f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="FallChallengeTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;ProjectFolder&gt;295EBC66-53D6-4B0B-849B-0E2619A5B8F5/d:PuzzleSolvers/d:2022&lt;/ProjectFolder&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
@@ -13,10 +13,9 @@
     &lt;ProjectFolder&gt;295EBC66-53D6-4B0B-849B-0E2619A5B8F5/d:PuzzleSolvers/d:2021&lt;/ProjectFolder&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c85e381f_002Dc78f_002D4709_002D8a2e_002D18ef21d2266f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c85e381f_002Dc78f_002D4709_002D8a2e_002D18ef21d2266f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F9E72FB5-9050-4199-B766-47E74807F567::.NETCoreApp,Version=v3.1::Tests.Class1.FallChallengeTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F9E72FB5-9050-4199-B766-47E74807F567::.NETCoreApp,Version=v3.1::Tests.Class1.GetPossibleSumsTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::F9E72FB5-9050-4199-B766-47E74807F567::.NETCoreApp,Version=v3.1::Tests.Class1.GetVariationsTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_05.PartOne&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_05.PartTwo&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
