@@ -14,8 +14,14 @@
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c85e381f_002Dc78f_002D4709_002D8a2e_002D18ef21d2266f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_05.PartOne&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_05.PartTwo&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_05&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_06.PartOne&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_06.PartTwo&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::295EBC66-53D6-4B0B-849B-0E2619A5B8F5::net7.0::AdventOfCode.PuzzleSolvers._2022.Day_06&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;ProjectFile&gt;295EBC66-53D6-4B0B-849B-0E2619A5B8F5/d:PuzzleSolvers/d:2022/f:Day_04.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFolder&gt;295EBC66-53D6-4B0B-849B-0E2619A5B8F5/d:PuzzleSolvers/d:2021&lt;/ProjectFolder&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
