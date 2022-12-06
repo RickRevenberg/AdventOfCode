@@ -35,7 +35,7 @@
 		    var tracker = 0;
 		    while (true)
 		    {
-			    var packet = data.Skip(tracker).Take(14).ToList();
+			    var packet = data.Skip(tracker).Take(uniqueCharacters).ToList();
 			    if (packet.Distinct().Count() == uniqueCharacters)
 			    {
 				    (tracker + uniqueCharacters).Pass();
