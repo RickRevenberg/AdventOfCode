@@ -63,7 +63,7 @@
 				}
 			}
 
-			string.Join("", crateConfiguration.Keys.Select(key => crateConfiguration[key].Last())).Pass();
+			crateConfiguration.Keys.Select(key => crateConfiguration[key].Last()).Join().Pass();
 		}
 
 		[Test]
@@ -77,7 +77,7 @@
 				crateConfiguration[command.from].RemoveRange(from.Count - command.count, command.count);
 			}
 
-			string.Join("", crateConfiguration.Keys.Select(key => crateConfiguration[key].Last())).Pass();
+			crateConfiguration.Keys.Select(key => crateConfiguration[key].Last()).Join().Pass();
 		}
 	}
 }
