@@ -85,7 +85,7 @@
 				    registerInstructions.Add(startingCycle, 0);
 			    }
 
-			    var newCharacter = Math.Abs(linePosition - register) < 2 ? "#" : ".";
+			    var newCharacter = Math.Abs(linePosition - register) < 2 ? "#" : " ";
 				lines[lineNumber].Add(newCharacter);
 
 				if (registerInstructions.TryGetValue(cycle + 1, out var addition))
