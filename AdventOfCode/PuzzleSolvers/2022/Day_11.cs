@@ -20,24 +20,23 @@
 		public async Task SetUp()
 		{
 			var input = await this.GetInput();
-
-			var divisionIndex = 1;
 			Monkeys = new Dictionary<int, Monkey>();
 
+			var divisionIndex = 1;
 			foreach (var monkeyData in input.Split("\n\n"))
 			{
 				var itemRegex = new Regex("(items: )([0-9]+, )*([0-9]+)");
 				var items = itemRegex.Match(monkeyData).Value.Split("items: ")[1].Split(", ")
 					.Select(x => new Item(x.ToInt())).ToList();
 
-				var operationRegex = new Regex("(\\*|\\+|\\-|\\\\) ([0-9]+|(old))");
+				var operationRegex = new Regex("(\\*|\\+) ([0-9]+|(old))");
 				var operation = operationRegex.Match(monkeyData).Value;
 
 				var operationValue = operation.Split(" ")[1] == "old" ? (int?)null : operation.Split(" ")[1].ToInt();
-				var function = operation.Split(" ")[0] switch
+				Func<Item, Item> function = operation.Split(" ")[0] switch
 				{
-					"*" => (Func<Item, Item>)((x) => (x * (operationValue ?? x.WorryLevel)) / WorryReductionIndex),
-					"+" => (Func<Item, Item>)((x) => (x + (operationValue ?? x.WorryLevel)) / WorryReductionIndex),
+					"*" => x => (x * (operationValue ?? x.WorryLevel)) / WorryReductionIndex,
+					"+" => x => (x + (operationValue ?? x.WorryLevel)) / WorryReductionIndex,
 					_ => throw new Exception()
 				};
 
@@ -114,7 +113,7 @@
 		{
 			internal List<Item> Items { get; set; }
 
-			internal Func<Item, Item> Operation { get; set; }
+			internal Func<Item, Item> Operation { get; init; }
 			internal Func<Item, bool> Test { get; init; }
 			internal Func<bool, int> ThrowTarget { get; init; }
 
