@@ -11,8 +11,8 @@
 	{
 		public override int Day => 14;
 
-		private List<List<Node>> grid = new ();
-		private Dictionary<int, Node> nodes = new ();
+		private List<List<Node>> grid;
+		private Dictionary<int, Node> nodes;
 
 		private int gridXStart;
 		private static int width, height, leftStack, rightStack;
@@ -20,6 +20,9 @@
 		[SetUp]
 		public async Task SetUp()
 		{
+			grid = new();
+			nodes = new();
+
 			var input = await this.SplitInput();
 
 			var formattedLines = input.Select(line => (List<(int posX, int posY)>)line.Split(" -> ").Select(x => (x.Split(",")[0].ToInt(), x.Split(",")[1].ToInt())).ToList()).ToList();
