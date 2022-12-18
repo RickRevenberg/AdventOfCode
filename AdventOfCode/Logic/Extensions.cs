@@ -16,7 +16,7 @@
 			Assert.Pass(input.ToString());
 	    }
 
-	    internal static string Join(this IEnumerable<object> input, string seperator = null)
+	    internal static string Join<T>(this IEnumerable<T> input, string seperator = null)
 	    {
 		    return string.Join(seperator ?? "", input);
 	    }
