@@ -20,13 +20,13 @@
 		}
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    Solve(2);
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    Solve(10);
         }

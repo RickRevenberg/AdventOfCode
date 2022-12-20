@@ -29,13 +29,13 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			this.Solve(2022).Pass();
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			const long oneTrillion = 1000000000000;
 			this.Solve(oneTrillion).Pass();

@@ -9,9 +9,6 @@
 		public abstract int Day { get; }
 		public abstract int Year { get; }
 
-		public abstract void PartOne();
-		public abstract void PartTwo();
-
 		public async Task<string> GetInput()
 		{
 			var cacheDirectory = Path.Combine(Directory.GetCurrentDirectory(), "../../../InputCache");

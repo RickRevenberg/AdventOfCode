@@ -39,7 +39,7 @@
 	    }
 
 	    [Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var uniqueNumbers = Records.Sum(record =>
 				record.NotedData.Count(n => n.Length == 2 || n.Length == 3 || n.Length == 4 || n.Length == 7));
@@ -48,7 +48,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			var resolvedNumbers = new List<int>();
 

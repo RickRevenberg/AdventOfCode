@@ -19,7 +19,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var score = 0;
 
@@ -43,7 +43,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			formattedInput = formattedInput.Select(mapCondition).ToList();
 			PartOne();

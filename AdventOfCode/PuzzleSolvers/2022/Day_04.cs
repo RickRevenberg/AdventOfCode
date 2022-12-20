@@ -23,7 +23,7 @@
 		}
 		
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			formattedInput.Count(input =>
 				(input[0].start <= input[1].start && input[0].end >= input[1].end) ||
@@ -32,7 +32,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			formattedInput.Count(input => !(input[0].end < input[1].start || input[0].start > input[1].end)).Pass();
 		}

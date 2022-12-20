@@ -21,7 +21,7 @@
 	    }
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var forwardTotal = formattedInput.Where(i => i.command.Equals("forward")).Sum(i => i.amount);
 		    var upTotal = formattedInput.Where(i => i.command.Equals("up")).Sum(i => i.amount);
@@ -34,7 +34,7 @@
 		}
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var aim = 0;
 		    var horizontal = 0;

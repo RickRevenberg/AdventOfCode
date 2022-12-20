@@ -19,14 +19,14 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var answer = formattedInput.Where((x, index) => index != 0 && x > formattedInput[index - 1]).Count();
 		    Assert.Pass(answer.ToString());
         }
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
         {
 		    var answer = formattedInput.Where((x, index) => index > 2 && x > formattedInput[index - 3]).Count();
 		    Assert.Pass(answer.ToString());

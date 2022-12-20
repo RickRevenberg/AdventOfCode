@@ -22,7 +22,7 @@
 		}
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var answer = ParsePackageOne(0, binaryString, out _);
 			
@@ -31,7 +31,7 @@
 	    }
 
 	    [Test]
-		public override void PartTwo()
+		public void PartTwo()
 	    {
 		    var answer = ParsePackageTwo(0, binaryString, out _);
 

@@ -60,11 +60,12 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 			}
 		}
 
-		public override void PartOne(){}
-
-		[TestCase(5, 100)]
-		public void PartOne(int chunkSize, int cacheSize)
+		[Test]
+		public void PartOne()
 		{
+			const int ChunkSize = 5;
+			const int CacheSize = 100;
+
 			var startingPoint = this.valves.Values.Single(x => x.Name == "AA").Id;
 
 			var routeWeight = new Dictionary<int, Dictionary<int, int>>();
@@ -97,7 +98,7 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 
 				foreach (var segment in bestSegments)
 				{
-					var options = DetermineOrders(usefulNodes.Select(x => x.Id).Except(segment.route).ToList(), chunkSize);
+					var options = DetermineOrders(usefulNodes.Select(x => x.Id).Except(segment.route).ToList(), ChunkSize);
 
 					foreach (var option in options)
 					{
@@ -121,25 +122,20 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 							currentPoint = node;
 						}
 
-						if (segment.score + routeScore == 2694)
-						{
-							var what = 0;
-						}
-
-						if (routeScore > 0 && (routeScore > worstOption || newData.Count < cacheSize))
+						if (routeScore > 0 && (routeScore > worstOption || newData.Count < CacheSize))
 						{
 							changed = true;
 
 							newData.Add((segment.score + routeScore, 30 - timeRemaining, new List<List<int>> { segment.route, route }.SelectMany(x => x).ToList()));
 							
-							newData = newData.OrderByDescending(x => x.score).Take(cacheSize).ToList();
+							newData = newData.OrderByDescending(x => x.score).Take(CacheSize).ToList();
 							worstOption = newData.MinBy(x => x.score).score - segment.score;
 						}
 					}
 				}
 
 				bestSegments.AddRange(newData);
-				bestSegments = bestSegments.OrderByDescending(x => x.score).Take(cacheSize).ToList();
+				bestSegments = bestSegments.OrderByDescending(x => x.score).Take(CacheSize).ToList();
 
 				if (!changed)
 				{
@@ -150,7 +146,7 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 			$"{bestSegments[0].score}: {(bestSegments[0].route.Select(x => this.valves[x].Name).Join(" - "))}".Pass();;
 		}
 
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			throw new System.NotImplementedException();
 		}

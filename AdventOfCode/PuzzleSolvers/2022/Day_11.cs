@@ -67,14 +67,14 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			this.WorryReductionIndex = 3;
 			this.Solve(20).Pass();
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			this.WorryReductionIndex = 1;
 			this.Solve(10000).Pass();

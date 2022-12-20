@@ -59,7 +59,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var result = CalculateBestPath(this.nodes.Keys.Single(k => this.nodes[k].IsStart));
 
@@ -68,7 +68,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			var startingOptions = this.nodes.Keys.Where(k => this.nodes[k].Height == 0).ToList();
 			var routeLengths = startingOptions.Select(CalculateBestPath);

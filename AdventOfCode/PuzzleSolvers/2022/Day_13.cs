@@ -27,7 +27,7 @@
 		}
 
 		[Test] // 6187
-		public override void PartOne()
+		public void PartOne()
 		{
 			var answer = 0;
 			for (var i = 0; i < packets.Count; i += 2)
@@ -45,7 +45,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			packets.AddRange(new List<Packet>
 			{

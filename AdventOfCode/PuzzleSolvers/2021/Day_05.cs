@@ -33,7 +33,7 @@
 		}
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 			lines = lines.Where(line => line.StartPoint.X == line.EndPoint.X || line.StartPoint.Y == line.EndPoint.Y).ToList();
 			lines.ForEach(AddStraightLineToGrid);
@@ -44,7 +44,7 @@
 	    }
 
 	    [Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var straightLines = lines.Where(line => line.StartPoint.X == line.EndPoint.X || line.StartPoint.Y == line.EndPoint.Y).ToList();
 			var diagonalLines = lines.Where(line => line.StartPoint.X != line.EndPoint.X && line.StartPoint.Y != line.EndPoint.Y).ToList();

@@ -25,7 +25,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var maxY = int.MinValue;
 		    var foundRoutes = 0;
@@ -45,7 +45,7 @@
 			Assert.Pass($"Routes: {foundRoutes} - highest: {maxY}");
 	    }
 
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    throw new NotImplementedException();
 	    }

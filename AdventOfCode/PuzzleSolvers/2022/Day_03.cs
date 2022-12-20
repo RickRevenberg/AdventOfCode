@@ -27,14 +27,14 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var priorityScore = formattedInput.Sum(input => GetPriority(input.compartmentOne.Single(input.compartmentTwo.Contains)));
 			Assert.Pass(priorityScore.ToString());
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			var priorityScore = formattedInput.Chunk(3).Sum(group =>
 				GetPriority(group[0].combined

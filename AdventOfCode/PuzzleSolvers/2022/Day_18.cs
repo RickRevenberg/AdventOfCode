@@ -23,7 +23,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var (highX, highY, highZ) = (coordinates.Select(x => x.x).Max(), coordinates.Select(x => x.y).Max(), coordinates.Select(x => x.z).Max());
 			var grid = new bool[highX + 2, highY + 2, highZ + 2];
@@ -38,7 +38,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			const int Addition = 2;
 

@@ -22,14 +22,14 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var answer = formattedInput.Max();
 			Assert.Pass(answer.ToString());
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			var answer = formattedInput.OrderByDescending(x => x).Take(3).Sum();
 			Assert.Pass(answer.ToString());

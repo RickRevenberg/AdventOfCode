@@ -52,7 +52,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			foreach (var command in commands)
 			{
@@ -67,7 +67,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			foreach (var command in commands)
 			{

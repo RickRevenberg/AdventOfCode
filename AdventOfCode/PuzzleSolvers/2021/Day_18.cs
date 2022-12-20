@@ -20,7 +20,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var value = Numbers.First();
 		    Node finalRoot = null;
@@ -35,7 +35,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 			var largest = -1;
 

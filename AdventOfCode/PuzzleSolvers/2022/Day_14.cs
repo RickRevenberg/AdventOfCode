@@ -81,7 +81,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var startingNodeId = this.grid.SelectMany(x => x).Single(x => x.IsStart).Id;
 			Node trackingNode = null;
@@ -111,7 +111,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			for (var i = 0; i < grid.Count; i++)
 			{

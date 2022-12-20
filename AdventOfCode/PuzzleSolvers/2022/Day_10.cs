@@ -20,7 +20,7 @@
 		}
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var register = 1;
 		    var signalStrengths = new List<int>();
@@ -56,7 +56,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var register = 1;
 		    var lines = new List<List<string>>();

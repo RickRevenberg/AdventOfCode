@@ -42,7 +42,7 @@
 		}
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var lowPoints = nodes.Where(node => node.NeighBourIds.All(id => NodeDict[id].Height > node.Height));
 		    var score = lowPoints.Select(x => x.Height + 1).Sum();
@@ -51,7 +51,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var lowPoints = nodes.Where(node => node.NeighBourIds.All(id => NodeDict[id].Height > node.Height)).ToList();
 

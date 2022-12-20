@@ -34,13 +34,13 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			DetermineBlockedSpotCount(GridSize / 2).size.Pass();
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			for (var i = 0; i <= GridSize; i++)
 			{

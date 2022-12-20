@@ -20,7 +20,7 @@
 		}
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var visibleTrees = formattedInput[0].Count * 2 + (formattedInput.Count * 2) - 4;
 
@@ -50,7 +50,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var highestScore = -1;
 

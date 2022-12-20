@@ -56,13 +56,13 @@
 		}
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 			Root.RetrieveStructure().Where(d => d.Size <= 100000).Sum(x => x.Size).Pass();
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var requiredSpace = 30000000 - (70000000 - Root.Size);
 			Root.RetrieveStructure().OrderBy(x => x.Size).First(x => x.Size >= requiredSpace).Size.Pass();

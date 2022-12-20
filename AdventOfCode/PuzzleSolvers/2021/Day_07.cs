@@ -20,7 +20,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var mean = -1;
 		    var difference = int.MaxValue;
@@ -48,7 +48,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var lastBest = int.MaxValue;
 

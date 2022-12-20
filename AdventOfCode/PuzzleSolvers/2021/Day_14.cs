@@ -32,13 +32,13 @@
 	    }
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    Solution(10);
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    Solution(40);
 	    }

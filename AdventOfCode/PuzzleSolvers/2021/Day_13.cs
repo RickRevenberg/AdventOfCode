@@ -59,7 +59,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    ExecuteFoldInstruction(this.foldInstructions[0]);
 		    var answer = this.nodes.Count(n => n.HasDot);
@@ -68,7 +68,7 @@
 	    }
 
 	    [Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    this.foldInstructions.ForEach(ExecuteFoldInstruction);
 		    var answer = Visualize();

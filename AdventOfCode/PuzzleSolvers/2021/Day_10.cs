@@ -33,7 +33,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var totalSyntaxError = 0;
 
@@ -66,7 +66,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var lineScores = new List<long>();
 

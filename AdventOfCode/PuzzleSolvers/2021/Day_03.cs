@@ -20,7 +20,7 @@
 	    }
 
 		[Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var deltaString = "";
 
@@ -38,7 +38,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var remainingData = formattedData.Select(x => x).ToList();
 		    var tracker = 0;

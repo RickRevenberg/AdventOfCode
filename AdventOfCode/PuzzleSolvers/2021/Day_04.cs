@@ -35,7 +35,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    foreach (var number in drawnNumbers)
 		    {
@@ -61,7 +61,7 @@
 	    }
 
 	    [Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var lastDrawnNumber = "";
 		    List<(string number, bool drawn)> winningBoard = null;

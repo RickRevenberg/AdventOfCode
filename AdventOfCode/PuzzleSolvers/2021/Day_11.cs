@@ -51,7 +51,7 @@
 	    }
 
 	    [Test]
-	    public override void PartOne()
+	    public void PartOne()
 	    {
 		    var charges = 0;
 
@@ -82,7 +82,7 @@
 	    }
 
 		[Test]
-	    public override void PartTwo()
+	    public void PartTwo()
 	    {
 		    var allFlashed = int.MaxValue;
 

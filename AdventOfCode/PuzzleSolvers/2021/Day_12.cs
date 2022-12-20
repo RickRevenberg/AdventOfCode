@@ -35,7 +35,7 @@
 		}
 
 		[Test]
-		public override void PartOne()
+		public void PartOne()
 		{
 			var startingNode = NodeDict["start"];
 			var possiblePaths = CalculatePaths(new List<Node> { startingNode }, SolvingMode.PartOne);
@@ -44,7 +44,7 @@
 		}
 
 		[Test]
-		public override void PartTwo()
+		public void PartTwo()
 		{
 			var startingNode = NodeDict["start"];
 			var possiblePaths = CalculatePaths(new List<Node> { startingNode }, SolvingMode.PartTwo);
