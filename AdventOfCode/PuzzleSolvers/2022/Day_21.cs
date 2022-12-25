@@ -75,24 +75,24 @@
 		{
 			var currMonkey = monkeyDict["root"];
 
-			var (leftValue, rightValue, right) = DetermineTurn(currMonkey);
-			var targetValue = right ? leftValue : rightValue;
+			var (leftValue, rightValue, rightChild) = DetermineTurn(currMonkey);
+			var targetValue = rightChild ? leftValue : rightValue;
 
 			while (true)
 			{
-				currMonkey = right ? monkeyDict[currMonkey.Right] : monkeyDict[currMonkey.Left];
+				currMonkey = rightChild ? monkeyDict[currMonkey.Right] : monkeyDict[currMonkey.Left];
 
 				if (currMonkey == monkeyDict["humn"])
 				{
 					break;
 				}
 
-				(leftValue, rightValue, right) = DetermineTurn(currMonkey);
+				(leftValue, rightValue, rightChild) = DetermineTurn(currMonkey);
 
 				targetValue = DeterminePartValue(
 					targetValue, currMonkey.OperationType,
-					right ? leftValue : null,
-					right ? null : rightValue);
+					rightChild ? leftValue : null,
+					rightChild ? null : rightValue);
 			}
 
 			targetValue.Pass();
@@ -142,10 +142,10 @@
 
 		private enum OperationType
 		{
-			Add = 1,
-			Subtract = 2,
-			Multiply = 3,
-			Divide = 5
+			Add = 0,
+			Subtract = 1,
+			Multiply = 2,
+			Divide = 3
 		}
 	}
 }
