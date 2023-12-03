@@ -1,14 +1,15 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2022
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text.RegularExpressions;
-	using System.Threading.Tasks;
-	using Logic;
-	using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    using AdventOfCode.Logic.Extensions;
+    using Logic;
+    using NUnit.Framework;
 
-	public class Day_21 : DayBase2022
+    public class Day_21 : DayBase2022
 	{
 		public override int Day => 21;
 

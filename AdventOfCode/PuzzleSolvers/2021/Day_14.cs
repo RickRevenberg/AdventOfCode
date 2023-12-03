@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
-	using Helpers;
+	using Logic.Modules;
 	using NUnit.Framework;
 
 	[TestFixture]

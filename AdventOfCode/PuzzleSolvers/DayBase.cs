@@ -1,7 +1,5 @@
 ﻿namespace AdventOfCode.PuzzleSolvers
 {
-	using System.IO;
-	using System.Threading.Tasks;
 	using Logic;
 
 	public abstract class DayBase

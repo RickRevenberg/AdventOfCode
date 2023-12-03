@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Threading.Tasks;
-	using Helpers;
+	using Logic.Extensions;
 	using NUnit.Framework;
 
 	[TestFixture]
@@ -132,8 +132,8 @@
 			{
 				0 => results.Sum(),
 				1 => results.Product(),
-				2 => results.OrderBy(x => x).First(),
-				3 => results.OrderBy(x => x).Last(),
+				2 => results.MinBy(x => x),
+				3 => results.MaxBy(x => x),
 				5 => results[0] > results[1] ? 1 : 0,
 				6 => results[0] < results[1] ? 1 : 0,
 				7 => results[0] == results[1] ? 1 : 0,

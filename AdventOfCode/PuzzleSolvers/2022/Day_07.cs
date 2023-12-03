@@ -1,12 +1,14 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2022
 {
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Threading.Tasks;
-	using Logic;
-	using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AdventOfCode.Logic.Extensions;
+    using Logic;
+    using Logic.Modules;
+    using NUnit.Framework;
 
-	public class Day_07 : DayBase2022
+    public class Day_07 : DayBase2022
 	{
 		public override int Day => 7;
 
@@ -38,7 +40,7 @@
 				else if (line.StartsWith("dir"))
 				{
 					var dirName = line.Substring(4, line.Length - 4);
-					Root.RetrieveStructure().Single(x => x.Path == dirPath).Directories.Add(new Directory
+					Root.RetrieveStructure().Single(x => x.Path == dirPath).Children.Add(new Directory
 					{
 						Name = dirName,
 						Path = dirPath + $"/{dirName}"
@@ -69,13 +71,13 @@
 	    }
 
 
-	    private class Directory
+	    private class Directory : GraphNode<Directory>
 	    {
-		    internal int Size => Files.Sum(x => x.Size) + this.Directories.Sum(x => x.Size);
+		    internal int Size => Files.Sum(x => x.Size) + this.Children.Sum(x => x.Size);
 
 		    internal List<Directory> RetrieveStructure()
 		    {
-			    var data = this.Directories.SelectMany(x => x.RetrieveStructure()).ToList();
+			    var data = this.Children.SelectMany(x => x.RetrieveStructure()).ToList();
 				data.Add(this);
 
 				return data;
@@ -84,7 +86,6 @@
 			internal string Name { get; set; }
 			internal string Path { get; init; }
 
-			internal List<Directory> Directories { get; set; } = new List<Directory>();
 			internal List<File> Files { get; set; } = new List<File>();
 	    }
 
