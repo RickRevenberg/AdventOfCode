@@ -12,6 +12,27 @@
             return Convert.ToInt32(input);
         }
 
+        internal static long ToLong(this string input)
+        {
+            return Convert.ToInt64(input);
+        }
+
+        internal static List<List<T>> Split<T>(this List<T> input, Func<T, bool> predicate)
+        {
+            var totalCount = 0;
+            var collections = new List<List<T>>();
+
+            while (totalCount < input.Count)
+            {
+                var subCollection = input.Skip(totalCount).TakeWhile((x, i) => i == 0 || !predicate(x)).ToList();
+
+                collections.Add(subCollection);
+                totalCount += subCollection.Count;
+            }
+
+            return collections;
+        }
+
         internal static void Pass(this object input)
         {
             Assert.Pass(input.ToString());
