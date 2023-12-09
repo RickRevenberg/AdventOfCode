@@ -33,6 +33,26 @@
             return collections;
         }
 
+        internal static long LCM(this List<long> input)
+        {
+            var lcm = input.First();
+            for (var i = 1; i < input.Count; i++)
+            {
+                var (gcfA, gcfB) = (lcm, input[i]);
+
+                while (gcfB != 0)
+                {
+                    var temp = gcfB;
+                    gcfB = gcfA % gcfB;
+                    gcfA = temp;
+                }
+
+                lcm = (lcm / gcfA) * input[i];
+            }
+
+            return lcm;
+        }
+
         internal static void Pass(this object input)
         {
             Assert.Pass(input.ToString());

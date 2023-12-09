@@ -5,22 +5,23 @@
     using System.Linq;
     using System.Threading.Tasks;
     using AdventOfCode.Logic.Extensions;
-    using Logic;
     using NUnit.Framework;
+
+	using Logic.Modules;
 
     public class Day_20 : DayBase2022
 	{
 		public override int Day => 20;
 
 		private int collectionSize;
-		private Dictionary<int, LinkedListNode<long>> nodeDict;
+		private Dictionary<int, DoublyLinkedListNode<long>> nodeDict;
 
 		[SetUp]
 		public async Task SetUp()
 		{
 			var nodes = (await this.SplitInput())
 				.Select(x => x.ToInt())
-				.Select((number, index) => new LinkedListNode<long> { Value = number, TrackingId = index }).ToList();
+				.Select((number, index) => new DoublyLinkedListNode<long> { Value = number, TrackingId = index }).ToList();
 
 			this.nodeDict = nodes.ToDictionary(x => x.TrackingId, x => x);
 
@@ -121,17 +122,6 @@
 			}
 
 			foundNumbers.Sum().Pass();
-		}
-
-		
-		private class LinkedListNode<T>
-		{
-			internal int TrackingId { get; init; }
-
-			internal LinkedListNode<T> Previous { get; set; }
-			internal LinkedListNode<T> Next { get; set; }
-
-			internal T Value { get; set; }
 		}
 	}
 }
