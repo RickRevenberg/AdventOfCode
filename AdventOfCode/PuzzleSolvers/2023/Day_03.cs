@@ -81,7 +81,7 @@
                 node.IsPart = !node.IsNumber && value != '.';
                 node.Value = value;
                 node.IsGear = value == '*';
-            }).AddAllConnections(true, (_, to) => to.Value != '.');
+            }).AddAllConnections(x => x.IncludeDiagonal = true, (_, to) => to.Value != '.');
         }
 
         private List<EngineNode> AllAdjacentNumbers(int from, int x)

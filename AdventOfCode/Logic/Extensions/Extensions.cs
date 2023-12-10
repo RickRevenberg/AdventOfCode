@@ -53,6 +53,11 @@
             return lcm;
         }
 
+        internal static bool In<T>(this T value, params T[] options)
+        {
+            return options.Contains(value);
+        }
+
         internal static void Pass(this object input)
         {
             Assert.Pass(input.ToString());

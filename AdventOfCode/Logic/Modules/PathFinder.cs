@@ -4,7 +4,9 @@
 	
 	internal static class PathFinder
     {
-	    internal static Grid<T> CreateGrid<T>(int width, int height, Action<int, int, T> expandedConstruction = null) where T : Node, new()
+        internal static Grid<Node> CreateGrid(int width, int height) => CreateGrid<Node>(width, height);
+
+        internal static Grid<T> CreateGrid<T>(int width, int height, Action<int, int, T> expandedConstruction = null) where T : Node, new()
 	    {
 		    var nodes = new List<T>();
 
@@ -33,28 +35,33 @@
 		    };
 	    }
 
-	    internal static Grid<T> AddAllConnections<T>(this Grid<T> grid, bool includeDiagonal = false, Func<T, T, bool> conditionPredicate = null) where T : Node, new()
-	    {
+        internal static Grid<T> AddAllConnections<T>(this Grid<T> grid, Func<T, T, bool> conditionPredicate = null) where T : Node, new() => grid.AddAllConnections(null, conditionPredicate);
+
+        internal static Grid<T> AddAllConnections<T>(this Grid<T> grid, Action<ConnectionOptions> optionBuilder, Func<T, T, bool> conditionPredicate = null) where T : Node, new()
+        {
+            var options = new ConnectionOptions();
+			optionBuilder?.Invoke(options);
+
 		    foreach (var key in grid.Nodes.Keys)
 		    {
 			    var node = grid.Nodes[key];
 
-                var hasLeft = node.Id % grid.Width != 0;
-                var hasUp = node.Id >= grid.Width;
-                var hasRight = (node.Id + 1) % grid.Width != 0;
-                var hasDown = (node.Id + grid.Width) < grid.Width * grid.Height;
+                var hasLeft = node.Id % grid.Width >= options.StepSize;
+                var hasUp = node.Id >= (grid.Width * options.StepSize);
+                var hasRight = (node.Id + options.StepSize) % grid.Width >= options.StepSize;
+                var hasDown = (node.Id + (grid.Width * options.StepSize)) < grid.Width * grid.Height;
 
-                node.Connections.Add(hasLeft ? node.Id - 1 : -1);
-			    node.Connections.Add(hasUp ? node.Id - grid.Width : -1);
-			    node.Connections.Add(hasRight ? node.Id + 1 : -1);
-			    node.Connections.Add(hasDown ? node.Id + grid.Width : -1);
+                node.Connections.Add(hasLeft ? node.Id - options.StepSize : -1);
+			    node.Connections.Add(hasUp ? node.Id - (grid.Width * options.StepSize) : -1);
+			    node.Connections.Add(hasRight ? node.Id + options.StepSize : -1);
+			    node.Connections.Add(hasDown ? node.Id + (grid.Width * options.StepSize) : -1);
 
-                if (includeDiagonal)
+                if (options.IncludeDiagonal)
                 {
-					node.Connections.Add(hasLeft && hasUp ? (node.Id - grid.Width) - 1 : -1);
-					node.Connections.Add(hasUp && hasRight ? (node.Id - grid.Width) + 1 : -1);
-					node.Connections.Add(hasLeft && hasDown ? (node.Id + grid.Width) - 1 : -1);
-					node.Connections.Add(hasRight && hasDown ? (node.Id + grid.Width) + 1 : -1);
+					node.Connections.Add(hasLeft && hasUp ? (node.Id - (grid.Width * options.StepSize)) - options.StepSize : -1);
+					node.Connections.Add(hasUp && hasRight ? (node.Id - (grid.Width * options.StepSize)) + options.StepSize : -1);
+					node.Connections.Add(hasLeft && hasDown ? (node.Id + (grid.Width * options.StepSize)) - options.StepSize : -1);
+					node.Connections.Add(hasRight && hasDown ? (node.Id + (grid.Width * options.StepSize)) + options.StepSize : -1);
                 }
 
 				node.Connections = node.Connections.Where(x =>
@@ -141,5 +148,11 @@
 		    internal int PosY { get; init; }
 		    internal List<int> Connections { get; set; } = new();
 	    }
+
+        internal class ConnectionOptions
+        {
+            internal bool IncludeDiagonal { get; set; } = false;
+            internal int StepSize { get; set; } = 1;
+        }
     }
 }

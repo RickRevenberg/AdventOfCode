@@ -29,7 +29,7 @@
 				node.IsStart = rows[y][x] == 'S';
 				node.IsFinish = rows[y][x] == 'E';
 				node.Height = node.IsStart ? 0 : node.IsFinish ? 26 : HeightMap.IndexOf(rows[y][x]);
-			}).AddAllConnections(false, (node, connection) => connection.Height <= node.Height + 1);
+			}).AddAllConnections((node, connection) => connection.Height <= node.Height + 1);
 		}
 
 		[Test]
