@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode.Logic.Extensions
 {
-    using System;
-    using System.Collections.Generic;
     using Newtonsoft.Json;
     using NUnit.Framework;
+    using System;
+    using System.Collections.Generic;
 
     internal static class Extensions
     {
@@ -31,6 +31,11 @@
             }
 
             return collections;
+        }
+
+        internal static bool ContainsDuplicate<T>(this List<T> input)
+        {
+            return input.Count != input.Distinct().Count();
         }
 
         internal static long LCM(this List<long> input)

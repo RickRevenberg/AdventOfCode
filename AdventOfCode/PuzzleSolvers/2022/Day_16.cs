@@ -1,15 +1,13 @@
 ﻿
 namespace AdventOfCode.PuzzleSolvers._2022
 {
-    using System;
+    using AdventOfCode.Logic.Extensions;
+    using Logic.Modules;
+    using NUnit.Framework;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using AdventOfCode.Logic.Extensions;
-    using Logic;
-    using NUnit.Framework;
 
     public class Day_16 : DayBase2022
 	{
@@ -18,8 +16,9 @@ namespace AdventOfCode.PuzzleSolvers._2022
 		private bool testing = false;
 
 		private Dictionary<int, Valve> valves;
+        private static Dictionary<(int start, int end), List<int>> pathCache;
 
-		private const string TestInput = @"Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
+        private const string TestInput = @"Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
 Valve BB has flow rate=13; tunnels lead to valves CC, AA
 Valve CC has flow rate=2; tunnels lead to valves DD, BB
 Valve DD has flow rate=20; tunnels lead to valves CC, AA, EE
@@ -38,6 +37,7 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 				: await this.SplitInput();
 
 			valves = new Dictionary<int, Valve>();
+            pathCache = new ();
 
 			var nameRegex = new Regex("[A-Z][A-Z]");
 			var flowRegex = new Regex("[0-9]+");
@@ -64,97 +64,122 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 		[Test]
 		public void PartOne()
 		{
-			const int ChunkSize = 5;
-			const int CacheSize = 100;
+            var paths = this.Solve(30);
 
-			var startingPoint = this.valves.Values.Single(x => x.Name == "AA").Id;
+            var bestPath = paths.MaxBy(x => x.PressureReleased);
+            var answer = bestPath.PressureReleased + " ";
+            answer += string.Join(" - ", bestPath.OpenValves.Select(x => this.valves[x].Name));
 
-			var routeWeight = new Dictionary<int, Dictionary<int, int>>();
-			var usefulNodes = this.valves.Values.Where(x => x.Id == startingPoint || x.FlowRate > 0).ToList();
+            answer.Pass();
+        }
 
-			foreach (var startId in usefulNodes.Select(x => x.Id))
-			{
-				routeWeight.Add(startId, new Dictionary<int, int>());
-
-				foreach (var endId in usefulNodes.Select(x => x.Id))
-				{
-					if (startId == endId) { continue; }
-					routeWeight[startId].Add(endId, CalculatePath(startId, endId).Count - 1);
-				}
-			}
-
-			usefulNodes = usefulNodes.Where(x => x.Id != startingPoint).ToList();
-
-			var bestSegments = new List<(int score, int timeConsumed, List<int> route)>
-			{
-				(0, 0, new List<int> { startingPoint })
-			};
-
-			while (true)
-			{
-				var changed = false;
-
-				var worstOption = 0;
-				var newData = new List<(int score, int timeConsumed, List<int> route)>();
-
-				foreach (var segment in bestSegments)
-				{
-					var options = DetermineOrders(usefulNodes.Select(x => x.Id).Except(segment.route).ToList(), ChunkSize);
-
-					foreach (var option in options)
-					{
-						var routeScore = 0;
-						var timeRemaining = 30 - segment.timeConsumed;
-						var currentPoint = segment.route.Last();
-
-						var route = option;
-
-						foreach (var node in option)
-						{
-							timeRemaining -= routeWeight[currentPoint][node] + 1;
-
-							if (timeRemaining <= 0)
-							{
-								route = option.Take(option.FindIndex(x => x == node)).ToList();
-								break;
-							}
-
-							routeScore += this.valves[node].FlowRate * timeRemaining;
-							currentPoint = node;
-						}
-
-						if (routeScore > 0 && (routeScore > worstOption || newData.Count < CacheSize))
-						{
-							changed = true;
-
-							newData.Add((segment.score + routeScore, 30 - timeRemaining, new List<List<int>> { segment.route, route }.SelectMany(x => x).ToList()));
-							
-							newData = newData.OrderByDescending(x => x.score).Take(CacheSize).ToList();
-							worstOption = newData.MinBy(x => x.score).score - segment.score;
-						}
-					}
-				}
-
-				bestSegments.AddRange(newData);
-				bestSegments = bestSegments.OrderByDescending(x => x.score).Take(CacheSize).ToList();
-
-				if (!changed)
-				{
-					break;
-				}
-			}
-
-			$"{bestSegments[0].score}: {(bestSegments[0].route.Select(x => this.valves[x].Name).Join(" - "))}".Pass();;
-		}
-
+		[Test]
 		public void PartTwo()
-		{
-			throw new System.NotImplementedException();
-		}
+        {
+            var paths = this.Solve(26);
+
+			paths.ForEach(x =>
+            {
+                x.OpenValves.Remove(this.valves.Values.Single(x => x.Name == "AA").Id);
+                x.OpenValves = x.OpenValves.OrderBy(y => y).ToList();
+            });
+
+            var possibilities = new SafeDictionary<int, List<(int, int)>>(defaultValue: _ => []);
+
+            for (var i = 0; i < paths.Count; i++)
+            {
+                for (var j = i + 1; j < paths.Count; j++)
+                {
+					possibilities[paths[i].PressureReleased + paths[j].PressureReleased].Add((i, j));
+                }
+            }
+
+            var answer = 0;
+            foreach (var key in possibilities.Keys.OrderByDescending(x => x))
+            {
+                if (possibilities[key].Any(x =>
+                        !new List<List<int>> { paths[x.Item1].OpenValves, paths[x.Item2].OpenValves }.SelectMany(x => x)
+                            .ToList().ContainsDuplicate()))
+                {
+                    answer = key;
+                    break;
+                }
+            }
+
+			answer.Pass();
+        }
+
+        private List<PathPossibility> Solve(int timeRemaining)
+        {
+            var startId = this.valves.Values.Single(x => x.Name == "AA").Id;
+
+            var paths = new List<PathPossibility>
+            {
+                new () { TimeRemaining = timeRemaining, OpenValves = [startId] }
+            };
+
+            foreach (var keyOne in this.valves.Keys)
+            {
+                foreach (var keyTwo in this.valves.Keys)
+                {
+                    if (keyOne == keyTwo)
+                    {
+                        continue;
+                    }
+
+                    CalculatePath(keyOne, keyTwo);
+                }
+            }
+
+            var openPaths = paths.Where(x => !x.Completed).ToList();
+            while (openPaths.Any())
+            {
+                foreach (var path in openPaths)
+                {
+                    var possibilities = this.valves.Values
+                        .Where(x => x.FlowRate > 0)
+                        .Where(x => !path.OpenValves.Contains(x.Id))
+                        .Select(x => (x, pathCache[(path.OpenValves.Last(), x.Id)]))
+                        .Where(x => x.Item2.Count < path.TimeRemaining)
+                        .ToList();
+
+                    if (!possibilities.Any())
+                    {
+                        path.Completed = true;
+                        path.PressureReleased += path.TimeRemaining * path.OpenValves.Select(x => this.valves[x].FlowRate).Sum();
+
+                        continue;
+                    }
+
+                    foreach (var possibility in possibilities)
+                    {
+                        var newPath = path.Clone();
+                        var timeSpent = possibility.Item2.Count;
+						
+                        newPath.PressureReleased += timeSpent * newPath.OpenValves.Select(x => this.valves[x].FlowRate).Sum();
+                        newPath.TimeRemaining -= timeSpent;
+						newPath.OpenValves.Add(possibility.x.Id);
+
+						paths.Add(newPath);
+                    }
+
+                    paths.Remove(path);
+                }
+
+                openPaths = paths.Where(x => !x.Completed).ToList();
+            }
+
+            return paths;
+        }
 
 		private List<int> CalculatePath(int start, int end, List<List<int>> currentPaths = null)
 		{
-			currentPaths ??= new List<List<int>>
+            if (pathCache.TryGetValue((start, end), out var cachedPath))
+            {
+                return cachedPath;
+            }
+
+            currentPaths ??= new List<List<int>>
 			{
 				new List<int>
 				{
@@ -173,6 +198,7 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 				var completedPath = leafPaths.FirstOrDefault(x => x.Last() == end);
 				if (completedPath != null)
 				{
+					pathCache.Add((start, end), completedPath);
 					return completedPath;
 				}
 
@@ -181,26 +207,6 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 			}
 
 			return CalculatePath(start, end, newPaths);
-		}
-
-		private static List<List<int>> DetermineOrders(List<int> input, int maxDepth, int currentDepth = 1)
-		{
-			if (currentDepth == maxDepth || input.Count == 1)
-			{
-				return input.Select(x => new List<int> { x }).ToList();
-			}
-
-			var options = new List<List<int>>();
-			foreach (var value in input)
-			{
-				var newList = new List<int> { value };
-				foreach (var data in DetermineOrders(input.Where(x => x != value).ToList(), maxDepth, currentDepth + 1) ?? new List<List<int>>())
-				{
-					options.Add(new List<List<int>> { newList, data }.SelectMany(x => x).ToList());
-				}
-			}
-
-			return options;
 		}
 
 		private class Valve
@@ -215,5 +221,13 @@ Valve JJ has flow rate=21; tunnel leads to valve II";
 				return $"{Id} - {this.FlowRate}";
 			}
 		}
+
+        private class PathPossibility
+        {
+            public int TimeRemaining { get; set; }
+            public List<int> OpenValves { get; set; } = [];
+            public int PressureReleased { get; set; } = 0;
+            public bool Completed { get; set; } = false;
+        }
 	}
 }
