@@ -73,6 +73,7 @@
             return string.Join(seperator ?? "", input);
         }
 
+        internal static long Product(this IEnumerable<int> input) => input.Select(x => (long)x).Product();
         internal static long Product(this IEnumerable<long> input)
         {
 	        long? total = null;
