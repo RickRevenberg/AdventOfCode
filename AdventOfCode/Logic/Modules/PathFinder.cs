@@ -1,10 +1,39 @@
 ﻿namespace AdventOfCode.Logic.Modules
 {
-	using System;
-	
-	internal static class PathFinder
+    using System;
+
+    internal static class PathFinder
     {
-        internal static Grid<Node> CreateGrid(int width, int height) => CreateGrid<Node>(width, height);
+        internal static TGrid CreateGrid<TGrid, TNode>(int width, int height, Action<int, int, TNode> expandedConstruction = null)
+			where TGrid : Grid<TNode>, new()
+            where TNode : Node, new()
+        {
+            var nodes = new List<TNode>();
+
+            for (var y = 0; y < height; y++)
+            {
+                for (var x = 0; x < width; x++)
+                {
+                    var node = new TNode
+                    {
+                        Id = nodes.Count,
+                        PosX = x,
+                        PosY = y
+                    };
+
+                    expandedConstruction?.Invoke(x, y, node);
+
+                    nodes.Add(node);
+                }
+            }
+
+            return new TGrid
+            {
+                Width = width,
+                Height = height,
+                Nodes = nodes.ToDictionary(x => x.Id, x => x)
+            };
+        }
 
         internal static Grid<T> CreateGrid<T>(int width, int height, Action<int, int, T> expandedConstruction = null) where T : Node, new()
 	    {
@@ -78,7 +107,44 @@
 		    return grid;
 	    }
 
-	    internal static (List<int> route, int length) CalculateShortestPath<T>(this Grid<T> grid, int startIndex, int endIndex) where T : Node, new()
+        internal static List<(List<int> route, int length)> CalculateAllPossiblePaths<T>(this Grid<T> grid, int startIndex, int endIndex)
+            where T : Node, new()
+        {
+            var possibleRoutes = new List<(List<int> route, int length)>();
+            var checkPaths = new List<List<int>> { new List<int> { startIndex } };
+
+            while (true)
+            {
+                var newPaths = new List<List<int>>();
+                foreach (var path in checkPaths.OrderBy(grid.PathWeight))
+                {
+                    var leaf = path.Last();
+                    var possibilities = grid.Nodes[leaf].Connections
+                        .Where(x => !path.Contains(x))
+                        .ToList();
+
+                    var leafPaths = possibilities.Select(x => new List<List<int>> { path, new() { x } }.SelectMany(y => y).ToList()).ToList();
+                    var completePaths = leafPaths.Where(x => x.Last() == endIndex);
+
+                    if (completePaths.Any())
+                    {
+						possibleRoutes.AddRange(completePaths.Select(x => (x, grid.PathWeight(x))));
+                        leafPaths.RemoveAll(x => completePaths.Contains(x));
+                    }
+
+                    newPaths.AddRange(leafPaths);
+                }
+
+                checkPaths = newPaths;
+                if (!checkPaths.Any())
+                {
+                    return possibleRoutes;
+                }
+            }
+        }
+
+
+        internal static (List<int> route, int length) CalculateShortestPath<T>(this Grid<T> grid, int startIndex, int endIndex) where T : Node, new()
 	    {
 		    var nodesVisited = new SafeDictionary<int, bool>
 		    {

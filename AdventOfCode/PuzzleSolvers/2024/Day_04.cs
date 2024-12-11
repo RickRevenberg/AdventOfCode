@@ -105,17 +105,5 @@
         {
             internal string Letter { get; set; }
         }
-
-        private enum Direction
-        {
-            Up,
-            UpRight,
-            Right,
-            DownRight,
-            Down,
-            DownLeft,
-            Left,
-            UpLeft
-        }
     }
 }
