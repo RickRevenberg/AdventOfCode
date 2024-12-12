@@ -15,7 +15,7 @@
         {
             var inputLines = await this.SplitInput();
 
-            this.grid = PathFinder.CreateGrid<RoomGrid, RoomNode>(inputLines[0].Length, inputLines.Count, (x, y, node) =>
+            this.grid = Grid.CreateGrid<RoomGrid, RoomNode>(inputLines[0].Length, inputLines.Count, (x, y, node) =>
             {
                 node.HasGuard = inputLines[y][x] == '^';
                 node.IsBlocked = inputLines[y][x] == '#';
@@ -129,7 +129,7 @@
             };
         }
 
-        private class RoomGrid : PathFinder.Grid<RoomNode>
+        private class RoomGrid : Grid<RoomNode>
         {
             internal void ResetGrid()
             {
@@ -138,7 +138,7 @@
             }
         }
 
-        private class RoomNode : PathFinder.Node
+        private class RoomNode : Grid.Node
         {
             internal bool HasGuard { get; set; }
             internal bool IsBlocked { get; set; }

@@ -7,14 +7,14 @@
     {
         public override int Day => 8;
 
-        private PathFinder.Grid<CityNode> grid;
+        private Grid<CityNode> grid;
 
         [SetUp]
         public async Task SetUp()
         {
             var input = await this.SplitInput();
 
-            this.grid = PathFinder.CreateGrid<CityNode>(input[0].Length, input.Count, (x, y, node) =>
+            this.grid = Grid.CreateGrid<CityNode>(input[0].Length, input.Count, (x, y, node) =>
             {
                 node.HasAntenna = input[y][x] != '.';
                 node.Identifier = input[y][x];
@@ -96,7 +96,7 @@
             antiNodeLocations.Distinct().Count().Pass();
         }
 
-        private class CityNode : PathFinder.Node
+        private class CityNode : Grid.Node
         {
             internal bool HasAntenna { get; set; }
             internal char Identifier { get; set; }

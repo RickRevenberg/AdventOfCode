@@ -2,7 +2,6 @@
 {
     using Logic.Extensions;
     using System;
-    using System.Diagnostics;
 
     public class Day_09 : DayBase2024
     {
@@ -72,12 +71,9 @@
             this.disk.Values.Where(x => x != null).Select((x, i) => (long)x * i).Sum().Pass();
         }
 
-        // == 6363913128533
         [Test]
         public void PartTwo()
         {
-            var sw = Stopwatch.StartNew();
-
             var files = new List<File>();
             var diskList = this.disk.Values.ToList();
 

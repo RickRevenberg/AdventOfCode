@@ -7,7 +7,7 @@
     {
         public override int Day => 12;
 
-        private PathFinder.Grid<GardenNode> grid;
+        private Grid<GardenNode> grid;
         private List<List<GardenNode>> nodeGroups;
 
         [SetUp]
@@ -15,7 +15,7 @@
         {
             var input = await this.SplitInput();
 
-            this.grid = PathFinder.CreateGrid<GardenNode>(input[0].Length, input.Count, (x, y, node) => node.PlantType = input[y][x].ToString());
+            this.grid = Grid.CreateGrid<GardenNode>(input[0].Length, input.Count, (x, y, node) => node.PlantType = input[y][x].ToString());
             this.grid.AddAllConnections((fromNode, toNode) => fromNode.PlantType == toNode.PlantType);
 
             this.nodeGroups = new List<List<GardenNode>>();
@@ -97,7 +97,7 @@
             total.Pass();
         }
 
-        private class GardenNode : PathFinder.Node
+        private class GardenNode : Grid.Node
         {
             internal string PlantType { get; set; }
         }

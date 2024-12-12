@@ -4,7 +4,7 @@
     using Logic.Extensions;
     using Logic.Modules;
     
-    using static Logic.Modules.PathFinder;
+    using static Logic.Modules.Grid;
 
     public class Day_03 : DayBase2023
     {

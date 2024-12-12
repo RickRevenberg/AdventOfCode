@@ -1,20 +1,20 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2023
 {
-    using System;
     using Logic.Extensions;
     using Logic.Modules;
+    using System;
 
     public class Day_11 : DayBase2023
     {
         public override int Day => 11;
 
-        private PathFinder.Grid<SpaceNode> grid;
+        private Grid<SpaceNode> grid;
 
         [SetUp]
         public async Task SetUp()
         {
             var input = await this.SplitInput();
-            this.grid = PathFinder.CreateGrid<SpaceNode>(input[0].Length, input.Count, (x, y, node) => node.IsGalaxy = input[y][x] == '#');
+            this.grid = Grid.CreateGrid<SpaceNode>(input[0].Length, input.Count, (x, y, node) => node.IsGalaxy = input[y][x] == '#');
         }
 
         [Test]
@@ -89,7 +89,7 @@
             return totalDistance;
         }
 
-        private class SpaceNode : PathFinder.Node
+        private class SpaceNode : Grid.Node
         {
             internal bool IsGalaxy { get; set; }
         }

@@ -63,7 +63,7 @@
             enclosedNodes.Count.Pass();
         }
 
-        private static List<int> GetConnectedGroup(PathFinder.Grid<PipeNode> grid, int startId)
+        private static List<int> GetConnectedGroup(Grid<PipeNode> grid, int startId)
         {
             var dict = new Dictionary<int, int> { { startId, startId } };
             var consideredEdges = new List<int> { startId };
@@ -86,7 +86,7 @@
             return dict.Values.ToList();
         }
 
-        private static List<int> DetermineMainLoop(PathFinder.Grid<PipeNode> grid)
+        private static List<int> DetermineMainLoop(Grid<PipeNode> grid)
         {
             var (key, node) = grid.Nodes.Single(x => x.Value.IsStart);
             var previousKey = key;
@@ -112,10 +112,10 @@
             return nodes;
         }
 
-        private PathFinder.Grid<PipeNode> ParseInputToGrid()
+        private Grid<PipeNode> ParseInputToGrid()
         {
             var nodeData = input.Select(x => x.ToCharArray().ToList()).ToList();
-            var grid = PathFinder.CreateGrid<PipeNode>(this.input[0].Length * 2, this.input.Count * 2, (x, y, node) => node.Value = (x % 2 != 0 || y % 2 != 0 ? '.' : nodeData[y / 2][x / 2]));
+            var grid = Grid.CreateGrid<PipeNode>(this.input[0].Length * 2, this.input.Count * 2, (x, y, node) => node.Value = (x % 2 != 0 || y % 2 != 0 ? '.' : nodeData[y / 2][x / 2]));
 
             grid.AddAllConnections(x => x.StepSize = 2, (from, to) =>
                 from.Value == '|' && from.PosX == to.PosX &&
@@ -175,7 +175,7 @@
             }
         }
 
-        private class PipeNode : PathFinder.Node
+        private class PipeNode : Grid.Node
         {
             internal bool IsStart { get; set; }
 

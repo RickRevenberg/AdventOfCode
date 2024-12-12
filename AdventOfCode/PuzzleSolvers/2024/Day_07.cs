@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2024
 {
     using Logic.Extensions;
+    using Logic.Modules;
     using System;
 
     [TestFixture]
@@ -25,7 +26,7 @@
             }
         }
 
-        [Test]
+        [Test] // 2941973819040
         public void PartOne()
         {
             var usedOperators = new List<Operator> { Operator.Add, Operator.Multiply };
@@ -33,7 +34,7 @@
             SolveValidEquations(usedOperators).Pass();
         }
 
-        [Test]
+        [Test] // 499886082835200
         public void PartTwo()
         {
             var usedOperators = new List<Operator> { Operator.Add, Operator.Multiply, Operator.Concatenation };
@@ -48,7 +49,7 @@
 
             for (var i = 1; i <= maxLength; i++)
             {
-                permutationDict.Add(i, GetOperationPermutations(usedOperators, i));
+                permutationDict.Add(i, usedOperators.CalculatePermutations(i));
             }
 
             var validTotal = 0L;
@@ -102,31 +103,6 @@
                 Operator.Concatenation => (a, b) => long.Parse($"{a}{b}"),
                 _ => throw new InvalidOperationException()
             };
-        }
-
-        private static List<List<Operator>> GetOperationPermutations(List<Operator> usedOperators, int length)
-        {
-            if (length <= 1)
-            {
-                return usedOperators.Select(x => new List<Operator> { x }).ToList();
-            }
-
-            var permutations = new List<List<Operator>>();
-
-            var subPermutations = GetOperationPermutations(usedOperators, length - 1);
-
-            foreach (var sub in subPermutations)
-            {
-                foreach (var op in usedOperators)
-                {
-                    var newPermutation = new List<Operator> { op };
-                    newPermutation.AddRange(sub);
-
-                    permutations.Add(newPermutation);
-                }
-            }
-
-            return permutations;
         }
     }
 }

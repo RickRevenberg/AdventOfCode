@@ -1,17 +1,17 @@
 ﻿namespace AdventOfCode.PuzzleSolvers._2022
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using AdventOfCode.Logic.Extensions;
     using Logic.Modules;
     using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class Day_12 : DayBase2022
 	{
 		public override int Day => 12;
 
-		private PathFinder.Grid<Node> Grid;
+		private Grid<Node> Grid;
 
 		private Dictionary<int, Node> nodes => Grid.Nodes;
 
@@ -24,7 +24,7 @@
 			var rows = input.Select((x, i) => (i, x.ToCharArray())).ToDictionary(x => x.i, x => x.Item2);
 
 
-			this.Grid = PathFinder.CreateGrid<Node>(input[0].ToCharArray().Length, input.Count, (x, y, node) =>
+			this.Grid = Logic.Modules.Grid.CreateGrid<Node>(input[0].ToCharArray().Length, input.Count, (x, y, node) =>
 			{
 				node.IsStart = rows[y][x] == 'S';
 				node.IsFinish = rows[y][x] == 'E';
@@ -53,7 +53,7 @@
 			bestRoute.length.Pass();
 		}
 
-		private class Node : PathFinder.Node 
+		private class Node : Grid.Node 
 		{
 			internal int Height { get; set; }
 

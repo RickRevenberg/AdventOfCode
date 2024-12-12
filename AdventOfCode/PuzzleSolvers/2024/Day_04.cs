@@ -9,14 +9,14 @@
     {
         public override int Day => 4;
 
-        private PathFinder.Grid<WordSearchNode> grid;
+        private Grid<WordSearchNode> grid;
 
         [SetUp]
         public async Task SetUp()
         {
             var nodes = (await this.SplitInput()).Select(x => x.ToList().ToList()).ToList();
 
-            this.grid = PathFinder.CreateGrid<WordSearchNode>(nodes[0].Count, nodes.Count, (x, y, node) =>
+            this.grid = Grid.CreateGrid<WordSearchNode>(nodes[0].Count, nodes.Count, (x, y, node) =>
             {
                 node.Letter = nodes[y][x].ToString();
             });
@@ -101,7 +101,7 @@
             }
         }
 
-        private class WordSearchNode : PathFinder.Node
+        private class WordSearchNode : Grid.Node
         {
             internal string Letter { get; set; }
         }

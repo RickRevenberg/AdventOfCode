@@ -7,14 +7,14 @@
     {
         public override int Day => 10;
 
-        private PathFinder.Grid<TrailNode> grid;
+        private Grid<TrailNode> grid;
 
         [SetUp]
         public async Task SetUp()
         {
             var input = await this.SplitInput();
 
-            this.grid = PathFinder.CreateGrid<TrailNode>(input[0].Length, input.Count, (x, y, node) => node.Height = int.Parse(input[y][x].ToString()));
+            this.grid = Grid.CreateGrid<TrailNode>(input[0].Length, input.Count, (x, y, node) => node.Height = int.Parse(input[y][x].ToString()));
             this.grid.AddAllConnections((nodeFrom, nodeTo) => nodeTo.Height == nodeFrom.Height + 1);
         }
 
@@ -61,7 +61,7 @@
             totalScore.Pass();
         }
 
-        private class TrailNode : PathFinder.Node
+        private class TrailNode : Grid.Node
         {
             internal int Height { get; set; }
 
