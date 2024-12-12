@@ -15,7 +15,7 @@
             this.parsedInput = input
                 .Select(x => (x.Split(' ')[0], x.Split(' ')[1].ToInt(), DetermineRank(x.Split(' ')[0])))
 
-                // Parse card letters to be in alphabetical order.
+                // Parse card letters To be in alphabetical order.
                 .Select(x => (x.Item1.Replace("T", "B").Replace("J", "C").Replace("Q", "D").Replace("K", "E").Replace("A", "F"), x.Item2, x.Item3))
                 .ToList();
         }

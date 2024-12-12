@@ -143,6 +143,41 @@
             }
         }
 
+        internal static List<T> GetConnectedNodeGroup<T>(this Grid<T> grid, T root) where T : Node, new()
+        {
+            var nodeDict = new Dictionary<int, T>
+            {
+                { root.Id, root }
+            };
+
+            var leafs = new List<T> { root };
+
+            while (true)
+            {
+                if (!leafs.Any())
+                {
+                    break;
+                }
+
+                var newLeafs = new List<T>();
+
+				leafs.ForEach(leaf =>
+                {
+                    leaf.Connections.ForEach(connection =>
+                    {
+                        if (nodeDict.TryAdd(connection, grid.Nodes[connection]))
+                        {
+                            newLeafs.Add(grid.Nodes[connection]);
+                        }
+                    });
+                });
+
+                leafs = newLeafs;
+            }
+
+            return nodeDict.Values.ToList();
+        }
+
 
         internal static (List<int> route, int length) CalculateShortestPath<T>(this Grid<T> grid, int startIndex, int endIndex) where T : Node, new()
 	    {

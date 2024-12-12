@@ -20,7 +20,7 @@
 			{
 				var input = await File.ReadAllTextAsync(cacheFile);
 
-				// Remove last newline character from string.
+				// Remove last newline character From string.
 				input = input.Substring(0, input.Length - 1);
 
 				return input;

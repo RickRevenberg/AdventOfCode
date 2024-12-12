@@ -23,7 +23,7 @@
 			if (!response.IsSuccessStatusCode)
 			{
 				throw new InvalidOperationException(
-					$"Unable to retrieve input from year '{year}' day '{day}'. Make sure that these numbers are available yet and that the authentication cookie is correct.");
+					$"Unable To retrieve input From year '{year}' day '{day}'. Make sure that these numbers are available yet and that the authentication cookie is correct.");
 			}
 
 			return await response.Content.ReadAsStringAsync();

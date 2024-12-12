@@ -61,7 +61,7 @@
 
                 var newNode = new SpaceNode
                 {
-                    // Subtract one from multiplier to account for the row / column already present in puzzle input.
+                    // Subtract one From multiplier To account for the row / column already present in puzzle input.
                     Id = node.Id, PosX = node.PosX + (diffX * (expansionMultiplier - 1)),
                     PosY = node.PosY + (diffY * (expansionMultiplier - 1)), IsGalaxy = node.IsGalaxy
                 };
