@@ -3,7 +3,7 @@
     using System;
     using static AdventOfCode.Logic.Modules.Grid;
 
-    internal class Grid
+    internal abstract class Grid
     {
         internal static TGrid CreateGrid<TGrid, TNode>(int width, int height, Action<int, int, TNode> expandedConstruction = null)
 			where TGrid : Grid<TNode>, new()
